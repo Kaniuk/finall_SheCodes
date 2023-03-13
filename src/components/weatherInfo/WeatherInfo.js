@@ -9,11 +9,9 @@ import {forecastService} from "../../services/forecast.service";
 const WeatherInfo = ({weather}) => {
     const [forecasts, setForecasts] = useState([]);
 
-
     useEffect(() => {
         forecastService.getAll(weather.city).then(value => setForecasts(value.daily));
     }, [weather.city]);
-
 
     return (
         <div>

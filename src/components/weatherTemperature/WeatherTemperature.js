@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 const WeatherTemperature = ({current}) => {
-
     const [unit, setUnit] = useState('celsius');
 
     let temperature = Math.round(current.temperature.current);

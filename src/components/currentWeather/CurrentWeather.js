@@ -3,8 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {currentService} from "../../services/current.service";
 import {WeatherInfo} from "../weatherInfo/WeatherInfo";
 import './CurrentWeather.css';
-import {forecastService} from "../../services/forecast.service";
-import {ForecastInfo} from "../forecastInfo/ForecastInfo";
 
 
 const CurrentWeather = ({defaultCity}) => {
@@ -41,11 +39,9 @@ const CurrentWeather = ({defaultCity}) => {
                 {current && (
                     <WeatherInfo weather={current}/>
                 )}
-
             </div>
         </div>
     );
 };
-
 
 export {CurrentWeather};
