@@ -10,7 +10,11 @@ const CurrentWeather = ({defaultCity}) => {
     const [city, setCity] = useState(defaultCity);
 
     useEffect(() => {
-        currentService.getCurrent(city).then(value => setCurrent(value));
+        currentService.getCurrent(city).then(data => {
+            const isValidResponse = data.status !== 'not_found';
+
+            setCurrent(isValidResponse ? data : undefined);
+        });
     }, [city]);
 
     function handleSubmit(e) {
