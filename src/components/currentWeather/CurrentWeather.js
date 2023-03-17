@@ -7,23 +7,25 @@ import './CurrentWeather.css';
 
 const CurrentWeather = ({defaultCity}) => {
     const [current, setCurrent] = useState();
-    const [city, setCity] = useState(defaultCity);
 
-    useEffect(() => {
+    const getCityWeather = (city) => {
         currentService.getCurrent(city).then(data => {
             const isValidResponse = data.status !== 'not_found';
 
             setCurrent(isValidResponse ? data : undefined);
         });
-    }, [city]);
+    };
+
+    useEffect(() => {
+        getCityWeather(defaultCity);
+    }, [defaultCity]);
 
     function handleSubmit(e) {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const city = formData.get('city');
+        getCityWeather(city);
         form.reset();
-    }
-
-    function handleCityChange(e) {
-        setCity(e.target.value);
     }
 
     const form = document.getElementsByTagName('form')[0];
@@ -34,9 +36,8 @@ const CurrentWeather = ({defaultCity}) => {
                 <div className="search">
                     <div className="row">
                         <form onSubmit={handleSubmit}>
-                            <input type="text" name="city" placeholder="Enter city" className="col-8" autoFocus="on"
-                                   onChange={handleCityChange}/>
-                            <input type="submit" value="Search" className="col-3 btn-primary"/>
+                            <input type="text" name="city" placeholder="Enter city" className="col-8" autoFocus="on"/>
+                            <input type="submit" className="col-3 btn-primary"/>
                         </form>
                     </div>
                 </div>
